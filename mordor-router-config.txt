@@ -1,0 +1,56 @@
+!
+version 12.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Mordor
+!
+!
+memory-size iomem 25
+ip subnet-zero
+!
+!
+!
+ip audit notify log
+ip audit po max-events 100
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ no ip address
+ shutdown 
+ half-duplex
+!         
+interface FastEthernet0/0
+ ip address 192.168.70.1 255.255.255.0
+ speed auto
+!         
+interface Ethernet1/0
+ no ip address
+ shutdown 
+ half-duplex
+!         
+ip classless
+ip route 0.0.0.0 0.0.0.0 FastEthernet0/0 192.168.10.1
+ip route 8.8.8.8 255.255.255.255 FastEthernet0/0 192.168.10.1
+ip route 192.168.10.0 255.255.255.0 FastEthernet0/0 192.168.20.1
+ip route 192.168.20.0 255.255.255.0 FastEthernet0/0 192.168.60.1
+ip route 192.168.30.0 255.255.255.0 FastEthernet0/0 192.168.40.1
+ip route 192.168.40.0 255.255.255.0 FastEthernet0/0 192.168.60.1
+ip route 192.168.50.0 255.255.255.0 FastEthernet0/0
+ip route 192.168.60.0 255.255.255.0 FastEthernet0/0
+ip route 192.168.70.0 255.255.255.0 FastEthernet0/0
+no ip http server
+!         
+!         
+!         
+!         
+line con 0
+line aux 0
+line vty 0 4
+!         
+no scheduler allocate
+end   
